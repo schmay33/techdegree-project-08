@@ -1,0 +1,6 @@
+if(errors)
+  h2.errors(class='error') Whoops!
+  ul.errors
+    each error in errors
+      li(class='small_error')
+        =error.message

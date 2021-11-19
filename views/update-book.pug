@@ -1,0 +1,26 @@
+extends layout.pug
+
+block content
+
+  h1 Update Book
+
+  include validation
+
+  form(action='/books/' + book.id, method='POST')
+
+    p
+      label(for='title') Title
+      input#title(name='title' type='text' value=book.title)
+    p
+      label(for='author') Author
+      input#author(name='author' type='text' value=book.author)
+    p
+      label(for='genre') Genre
+      input#genre(name='genre' type='text' value=book.genre)
+    p
+      label(for='year') Year
+      input#year(name='year' type='text' value=book.year)
+    div(id="button_grid")
+      input(type='submit' value='Update Book' class='grid_button_1')
+      a.button(href='/books/' + book.id + '/delete' class='grid_button_2') Delete Book
+      a.button(href='/books' class='grid_button_3') Cancel

@@ -1,0 +1,8 @@
+extends layout 
+
+block content 
+    h1 Page Not Found 
+    if error
+        p #{error.message}
+    p
+        a.button(href='/books') Home

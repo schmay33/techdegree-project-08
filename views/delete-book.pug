@@ -1,0 +1,11 @@
+extends layout.pug
+
+block content
+
+    h1 Delete Book
+    form(action='/books/' + book.id + '/delete', method='POST')
+      h2 Are you sure you want to delete #{book.title}?
+      p
+        input(type='submit' value='Delete Book')
+      p
+        a.button(href='/books') Cancel

@@ -1,0 +1,6 @@
+extends layout
+
+block content 
+    include book-errors
+    form(action="/books/new", method="post")
+        include form
