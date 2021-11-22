@@ -6,11 +6,10 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var books = require('./routes/books');
 
+// Use Express-Paginate module
 const paginate = require('express-paginate');
 
-//var usersRouter = require('./routes/users');
 const db = require('./models');
-const Book = require('./models').Book;
 const sequelize = db.sequelize;
 
 var app = express();
@@ -25,7 +24,9 @@ sequelize.sync()
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
+// Use PUG as the view engine
 app.set('view engine', 'pug');
+// Add Paginate middleware
 app.use(paginate.middleware(10, 50));
 app.use(logger('dev'));
 app.use(express.json());
