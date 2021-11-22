@@ -26,7 +26,7 @@ sequelize.sync()
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-
+app.use(paginate.middleware(10, 50));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({
@@ -35,7 +35,6 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(paginate.middleware(10, 50));
 
 app.use('/', indexRouter);
 app.use('/books', books);

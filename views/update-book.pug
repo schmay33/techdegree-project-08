@@ -21,6 +21,14 @@ block content
       label(for='year') Year
       input#year(name='year' type='text' value=book.year)
     div(id="button_grid")
-      input(type='submit' value='Update Book' class='grid_button_1')
-      a.button(href='/books/' + book.id + '/delete' class='grid_button_2') Delete Book
-      a.button(href='/books' class='grid_button_3') Cancel
+      table
+        tr
+          td
+            input(type='submit' value='Update Book' class='btn btn-primary')
+          td 
+            a.button(href='/books/' + book.id + '/delete' class='btn btn-primary') Delete Book
+          td 
+            a.button(href='/books' class='btn btn-primary') Cancel
+      
+      
+      

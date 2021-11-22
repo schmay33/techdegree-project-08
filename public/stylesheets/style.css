@@ -10,6 +10,10 @@ a {
   transition: 0.4s;
 }
 
+.search-input {
+  margin-right: 5px;
+}
+/* 
 a:hover {
   color: black;
 }
@@ -38,7 +42,7 @@ input[type=submit] {
 a.button:hover,
 input[type=submit]:hover {
   background-color: #01b189;
-}
+} */
 
 p {
   margin: 20px auto;

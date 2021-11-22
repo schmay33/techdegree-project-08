@@ -6,11 +6,17 @@ block content
     table 
       tr 
         td 
-          a.button(href='/books/new') Create New Book
+          a.btn.btn-primary(href='/books/new') Create New Book
         td 
-          form(method="GET" action="/search" class="search-form")
-            input(type="text" name="search" id="search-input" class="search-input" placeholder="Search for...")
-            button(type="submit" class="search-submit" id="search-submit")
-              i(class="fa fa-search")
+          form(method="GET" action="/books/search" class="search-form")
+            table
+              tr
+                td
+                  input.form-control.form-control-sm(type="text" name="search" id="search-input" placeholder="Search for...")
+                td
+                  button(type="submit" class="search-submit" id="search-submit").btn.btn-primary
+                    i(class="fa fa-search")
 
   block primary
+
+  

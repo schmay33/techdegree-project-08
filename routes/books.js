@@ -29,20 +29,61 @@ function asyncHandler(cb) {
 }); */
 
 router.get("/", asyncHandler(async (req, res, next) => {
-   await Book.findAndCountAll({limit: req.query.limit, offset: req.skip})
+  await Book.findAndCountAll({limit: req.query.limit, offset: req.skip})
+  .then(results => {
+    const itemCount = results.count;
+    console.log("Count:" + itemCount);
+    const pageCount = Math.ceil(results.count / req.query.limit);
+    console.log("Page Count: " + pageCount);
+    console.log("Rows: " + results.rows);
+    console.log("Item Count: " + itemCount);
+    console.log("Pages: " + paginate.getArrayPages(req)(3, pageCount, req.query.page));
+    res.render('index', {
+      books: results.rows,
+      pageCount: pageCount,
+      itemCount: itemCount,
+      pages: paginate.getArrayPages(req)(3, pageCount, req.query.page)
+    });
+  }).catch(err => next(err));
+}));
+
+router.get('/search', asyncHandler(async(req, res, next) =>{
+  const search = req.query.search.toLowerCase();
+  if(search.length > 0) {
+    await Book.findAndCountAll({
+      limit: req.query.limit, 
+      offset: req.skip,
+      where:{
+        [Op.or]:[
+          {
+            title:{[Op.like]: `%${search}%`}
+          },
+          {
+            author:{[Op.like]: `%${search}%`}
+          },
+          {
+            genre:{[Op.like]: `%${search}%`}
+          },
+          {
+            year:{[Op.like]: `%${search}%`}
+          }
+        ]
+      }
+    })
     .then(results => {
       const itemCount = results.count;
-      console.log("Count:" + itemCount);
       const pageCount = Math.ceil(results.count / req.query.limit);
-      res.render('paginate', {
+      res.render('index', {
         books: results.rows,
         pageCount: pageCount,
         itemCount: itemCount,
         pages: paginate.getArrayPages(req)(3, pageCount, req.query.page)
       });
-  }).catch(err => next(err))
+    }).catch(err => next(err));
+  } else {
+    res.redirect('/index');
+  }
 }));
-
 
 router.get('/new', asyncHandler(async (req, res, next) => {
   res.render("new-book", {
